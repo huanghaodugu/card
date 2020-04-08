@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bank</title>
+    <style>
+        body{
+            margin: 0;
+            font-size: 10px;
+        }
+        .flex-aic{
+            display: flex;
+            align-items: center;
+        }
+        ul,li{
+            padding: 0;
+            list-style: none;
+        }
+        .bg{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            background-size: 100% 100%;
+        }
+        .box{
+            display: flex;
+            justify-content:flex-end;
+            width: 106em;
+            height: 64em;
+            background:#fff;
+            border: 1em solid #fddada;
+            border-radius: 5em;
+            box-shadow: 2em 1em 1.9em 1.6em #fddada;
+            overflow: hidden;
+        }
+        .conten-right{
+            padding: 2em;
+            background-color: #fbfbfb;
+            border-radius: 5em;
+            box-shadow: -2em 0em 4em 0em #f6f7f8;
+        }
+        .user-msg{
+            display: flex;
+            justify-content: space-between;
+            margin: 2em 1em;
+        }
+        .msg-icon{
+            margin-right: 0.5em;
+        }
+        .user-name{
+            margin-right: .5em;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .balance{
+            margin: 2em 0;
+        }
+        .history{
+            font-size: 1.2em;
+        }
+        .h-head{
+            display: flex;
+            justify-content: space-between;
+            color: #c9cbd0;
+        }
+        .down{
+            border-left: .2em solid #c6c7cc;
+            border-bottom: .2em solid #c6c7cc;
+            height: .6em;
+            width: .6em;
+            transform: rotate(-45deg);
+            margin-left: .5em;
+            margin-top: -.3em;
+        }
+        .income{
+            color: #5eaabc;
+        }
+        .pay{
+            color: #ff9da2;
+        }
+        .h-list{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: .5em 0;
+        }
+        .h-list-l{
+            margin-right: .5em;
+        }
+        .h-icon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4em;
+            height: 4em;
+            margin-right: .5em;
+            background-color: #fff;
+            border-radius: 1em;
+        }
+        .transfer-box{
+            margin: 2em 0;
+            padding: 0 .6em;
+            text-align: center;
+            color: #fff;
+            font-size: 1.2em;
+        }
+        .transfer-btn{
+            display: flex;
+            justify-content: space-between;
+            padding: 1em;
+            background-color: #ff4d56;
+            border-radius: 1em;
+        }
+        .righ-arrow{
+            display: flex;
+            align-items: center;
+        }
+        .transfer-box .line{
+            width: 2em;
+            border-bottom: .05em solid #fff;
+            margin-top: -0.02em;
+            margin-right: -0.5em;
+        }
+        .transfer-box .arrow{
+            width: .5em;
+            height: .5em;
+            border-left: .03em solid #fff;
+            border-bottom: .03em solid #fff;
+            transform: rotate(-135deg);
+        }
+        .service{
+            display: flex;
+            justify-content: flex-end;;
+        }
+        .service-icon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 5em;
+            height: 5em;
+            background-color: #0e809a;
+            border-radius: 50%;
+        }
+        .conten-lefr{
+            width: 200em;
+            padding: 3em;
+            background-color: #fefefe;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="bg" :style="'background-image:url('+bgi+')'">
+            <div class="box">
+                <div class="conten-lefr">
+                    <div></div>
+                </div>
+                <div class="conten-right">
+                    <div class="user-msg">
+                        <div class="msg-icon flex-aic">
+                            <img src="images/cards_06.jpg" alt="">
+                        </div>
+                        <div class="flex-aic">
+                            <span class="user-name">Anastasia</span>
+                            <img src="images/cards_03.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="balance">
+                        <div id="balance" style="width:17em;height:17em"></div>
+                    </div>
+                    <div class="history">
+                        <div class="h-head">
+                            <div>Transactions</div>
+                            <div class="flex-aic">Today <span class="down"></span></div>
+                        </div>
+                        <div>
+                            <ul>
+                                <li class="h-list" v-for="item in balanceHistory">
+                                    <div class="flex-aic h-list-l">
+                                        <div class="h-icon"><img :src="item.url" alt=""></div>
+                                        {{item.title}}
+                                    </div>
+                                    <div v-if="item.num>0" class="income">+${{item.num}}</div>
+                                    <div v-else class="pay">-${{item.num}}</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="transfer-box">
+                        <div class="transfer-btn">
+                            <div>Transfer Money</div>
+                            <div class="righ-arrow">
+                                <div class="line"></div>
+                                <div class="arrow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service">
+                        <div class="service-icon"><img src="images/cards_49.jpg" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="https://lib.baomitu.com/echarts/4.6.0/echarts.min.js"></script>
+    <script>
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'jjj',
+                bgi: 'images/bgimg.jpg',
+                balanceHistory: [
+                    {
+                        url: 'images/cards_23.jpg',
+                        title: 'Dribbble Pro Plan',
+                        num: -100
+                    },
+                    
+                    {
+                        url: 'images/cards_31.jpg',
+                        title: 'Adidas Refund',
+                        num: 230
+                    },
+                    
+                    {
+                        url: 'images/cards_35.jpg',
+                        title: 'Wacom LCD',
+                        num: -3000
+                    },
+
+                ],
+                balanceNum:{
+                    card1Num: 2200,
+                    card2Num: 1300.89,
+                    card3Num: 1850
+                }
+            },
+            computed: {
+                balanceTotal (){  // 钱包总额
+                    return this.balanceNum.card1Num+this.balanceNum.card2Num+this.balanceNum.card3Num
+                }
+            },
+            mounted(){
+                var myChart = echarts.init(document.getElementById('balance'));
+                option = {
+                    title: {
+                        text: '$'+this.balanceTotal,
+                        subtext: 'Balance',
+                        x: 'center',
+                        y: '45%',
+                        padding:1,
+                        textStyle : {
+                            color : '#586274',
+                            fontSize : 12
+                        },
+                        subtextStyle: {
+                            textShadowOffsetY: -20,
+                            color: '#c5c7cc',
+                            fontSize: 10,
+                        }
+                    },
+                    series: [
+                        {
+                            name:'',
+                            type:'pie', //环形图的type和饼图相同
+                            radius: ['50%', '70%'],//饼图的半径，第一个为内半径，第二个为外半径
+                            avoidLabelOverlap: false,
+                            clockwise: false,
+                            color:['#ff2934','#0e809a','#14233c','#fff'],
+                            // label: {
+                            //     normal: {  //正常的样式
+                            //         show: true,
+                            //         position: 'left'
+                            //     },
+                            //     emphasis: { //选中时候的样式
+                            //         show: true,
+                            //         textStyle: {
+                            //             fontSize: '20',
+                            //             fontWeight: 'bold'
+                            //         }
+                            //     }
+                            // },  //提示文字
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data:[
+                                {value:this.balanceNum.card1Num, name:''},
+                                {value:this.balanceNum.card2Num, name:''},
+                                {value:this.balanceNum.card3Num, name:''},
+                                {value:2000, name:''}
+                            ]
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+            }
+        })
+
+    </script>
+</body>
+</html>
